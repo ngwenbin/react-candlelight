@@ -3,22 +3,28 @@
 @tailwind utilities;
 
 :root {
-  --color-background: #FFF
+  --gray-1: #EEEEF0;
+  height: 100%;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  font-weight: normal;
+:root {
+  --color-background: #111;
+  --color-text: var(--gray-1);
+}
+
+ul {
+  list-style: none;
+}
+
+body, #root {
+  min-height: 100vh;
 }
 
 body {
-  min-height: 100vh;
+  position: relative;
   color: var(--color-text);
   background: var(--color-background);
-  line-height: 1.6;
+  /* background: linear-gradient(#481D0A 0%,#341B10 15%, #1D1512 50%, #111); */
   font-family:
     Inter,
     -apple-system,
