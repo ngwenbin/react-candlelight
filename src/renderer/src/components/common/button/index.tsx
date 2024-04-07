@@ -36,10 +36,14 @@ export const Button = ({
   text,
   icon,
   variant = "primary",
-  size = "medium"
+  size = "medium",
+  type = "button",
+  ...props
 }: ButtonProps) => {
   return (
     <button
+      {...props}
+      type={type}
       className={clsx(
         ButtonVariantClassNameMap[variant],
         ButtonSizeClassNameMap[size],
