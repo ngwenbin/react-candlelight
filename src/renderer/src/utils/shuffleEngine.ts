@@ -18,7 +18,9 @@ export class ShuffleEngine {
 
   peekQueue(peekMax?: number): Song[] | undefined {
     const peekValue = peekMax ?? DEFAULT_PEEK_MAX
-    return this.queue.peek(peekValue <= QUEUE_CAPACITY ? peekValue : QUEUE_CAPACITY)
+    return this.queue.peek(
+      peekValue <= QUEUE_CAPACITY ? peekValue : QUEUE_CAPACITY
+    )
   }
 
   nextSong(): Song | undefined {

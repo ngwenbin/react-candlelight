@@ -19,11 +19,13 @@ interface ButtonProps
 
 const ButtonVariantClassNameMap: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary-main text-primary-light hover:bg-[#CF602F] border-transparent",
+    "bg-primary-main text-primary-light enabled:hover:bg-[#CF602F] border-transparent",
   secondary:
-    "text-primary-light bg-primary-dark border-gray-1 border-opacity-30 hover:border-opacity-100",
-  tertiary: "bg-white text-black hover:bg-gray-1 border-transparent",
-  actionLink: "text-primary-main hover:text-[#FF996F] border-transparent"
+    "text-primary-light bg-primary-dark border-gray-1 border-opacity-30 enabled:hover:border-opacity-100",
+  tertiary:
+    "bg-white text-black disabled:text-gray-6 enabled:hover:bg-gray-1 border-transparent disabled:cursor-not-allowed",
+  actionLink:
+    "text-primary-main enabled:hover:text-[#FF996F] border-transparent"
 }
 
 const ButtonSizeClassNameMap: Record<ButtonSize, string> = {
