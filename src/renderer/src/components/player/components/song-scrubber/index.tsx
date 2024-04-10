@@ -5,6 +5,7 @@ import toNumber from "lodash/toNumber"
 interface SongScrubberProps {
   audioSrc: string
   currentTime: number
+  onPlaying: () => void
   onScrollSet: () => void
   onSongFinish: () => void
   onScrollMove: (value: number) => void
@@ -19,6 +20,7 @@ export const SongScrubber = forwardRef(
     {
       audioSrc,
       currentTime,
+      onPlaying,
       onScrollSet,
       onSongFinish,
       onScrollMove,
@@ -63,15 +65,18 @@ export const SongScrubber = forwardRef(
           onEnded={handleOnEnded}
           onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleOnMetaDataLoad}
+          onPlaying={onPlaying}
         />
         <input
-          tabIndex={-1}
+          min={0}
+          max={max}
           type="range"
+          tabIndex={-1}
           value={currentTime}
+          disabled={isLoading}
           onMouseUp={handleOnScrollSet}
           onChange={handleOnScrollMove}
           onKeyDown={(e) => e.preventDefault()}
-          disabled={isLoading}
         />
       </>
     )
