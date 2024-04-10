@@ -6,7 +6,7 @@ import { SongData } from "@renderer/types/song"
 
 interface QueueInterfaceProps {
   getSongQueue: () => SongData[]
-  onSongClick: (id: string) => void
+  onSongClick: (id: string, idx: number) => void
 }
 
 /**
@@ -17,11 +17,9 @@ export const QueueInterface = ({
   onSongClick
 }: QueueInterfaceProps) => {
   const [show, setShow] = useState(false)
-  const [songQueue, setSongQueue] = useState<SongData[]>([])
 
   const handleShowMenu = () => {
     setShow(true)
-    setSongQueue(getSongQueue())
   }
 
   const handleHideMenu = () => {
@@ -39,7 +37,7 @@ export const QueueInterface = ({
       />
       {show && (
         <QueueMenu
-          songQueue={songQueue}
+          getSongQueue={getSongQueue}
           onClose={handleHideMenu}
           onSongClick={onSongClick}
         />
