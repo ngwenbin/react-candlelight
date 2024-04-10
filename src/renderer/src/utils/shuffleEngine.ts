@@ -1,8 +1,6 @@
 import { Song } from "@renderer/types/song"
 import { QUEUE_CAPACITY, Queue } from "./queue"
 
-const DEFAULT_PEEK_MAX = 5
-
 export class ShuffleEngine {
   queue: Queue<Song> = new Queue()
 
@@ -16,8 +14,8 @@ export class ShuffleEngine {
     }
   }
 
-  peekQueue(peekMax?: number): Song[] | undefined {
-    const peekValue = peekMax ?? DEFAULT_PEEK_MAX
+  peekQueue(peekMax: number): Song[] | undefined {
+    const peekValue = peekMax
     return this.queue.peek(
       peekValue <= QUEUE_CAPACITY ? peekValue : QUEUE_CAPACITY
     )
