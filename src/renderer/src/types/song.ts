@@ -1,6 +1,16 @@
-export interface Song {
+type SongId = string
+
+export interface SongData {
+  id: string
+  songId: string
   name: string
   artist: string
   src: string
-  prev?: Song // Not ideal since it is wasting memory, should be a song ID ideally. Using object as pointer as there is no BE.
+  coverImg?: string
+}
+
+export interface Song {
+  id: string
+  songId: SongId
+  prev?: Song
 }
