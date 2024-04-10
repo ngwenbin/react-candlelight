@@ -42,6 +42,7 @@ export const useSongScrubber = () => {
   return {
     ref,
     isPlaying,
+    setIsPlaying,
     currentTime,
     onTogglePlay,
     onScrollMove,
