@@ -6,6 +6,7 @@ interface FormInputProps
   id: string
   label?: string
   containerClassName?: string
+  errors?: React.ReactNode
 }
 
 /**
@@ -16,6 +17,7 @@ export const FormInput = ({
   label,
   className,
   containerClassName,
+  errors,
   ...props
 }: FormInputProps) => {
   return (
@@ -31,6 +33,7 @@ export const FormInput = ({
           className
         )}
       />
+      <div className="text-xs text-red-400">{errors}</div>
     </div>
   )
 }
