@@ -42,7 +42,6 @@ function App(): JSX.Element {
   return (
     <Layout className="px-10 pt-4 relative">
       <Player
-        hasPrevious={!!currentSongData?.prev}
         song={currentSongData}
         onFinish={handleNextSong}
         onSkipNext={handleNextSong}

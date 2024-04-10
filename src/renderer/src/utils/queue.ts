@@ -6,6 +6,7 @@ export class Queue<T> {
 
   enqueue(item: T): void {
     if (this.size() < this.capacity) {
+      console.log("pushed")
       this.items.push(item)
     } else {
       throw new Error("Max capacity reached.")

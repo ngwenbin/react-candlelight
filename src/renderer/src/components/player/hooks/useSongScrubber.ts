@@ -11,8 +11,9 @@ export const useSongScrubber = () => {
   const onTogglePlay = () => {
     setIsPlaying((curr) => {
       const playStatus = !curr
-      if (playStatus) {
-        ref.current?.play()
+      if (playStatus && ref.current) {
+        ref.current.play()
+        ref.current.autoplay = true
       } else {
         ref.current?.pause()
       }

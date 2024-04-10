@@ -13,7 +13,6 @@ import { useEffect } from "react"
 
 interface PlayerProps {
   song?: SongData
-  hasPrevious?: boolean
   onSkipNext: () => void
   onSkipPrev: () => void
   onFinish: () => void
@@ -22,7 +21,6 @@ interface PlayerProps {
 
 export const Player = ({
   song,
-  hasPrevious,
   onSkipNext,
   onSkipPrev,
   onFinish,
@@ -83,7 +81,7 @@ export const Player = ({
         <Button
           className="!bg-transparent enabled:hover:bg-transparent text-gray-2 hover:text-white"
           icon={<RiSkipBackFill className="w-8 h-8" />}
-          disabled={!hasPrevious || !hasSongLoaded || loading}
+          disabled
           onClick={onSkipPrev}
           variant="tertiary"
         />

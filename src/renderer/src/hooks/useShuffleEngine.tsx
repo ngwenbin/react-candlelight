@@ -58,9 +58,7 @@ export const useShuffleEngine = () => {
     generateSongs(poppedSong)
   }
 
-  const handlePreviousSong = () => {
-    shuffleEngine.previousSong()
-  }
+  const handlePreviousSong = () => {}
 
   const handlePeekQueue = () => {
     generateSongs()
