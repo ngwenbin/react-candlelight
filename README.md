@@ -1,4 +1,4 @@
-# react-dj
+# react-candlelight
 
 An Electron application with React and TypeScript
 
