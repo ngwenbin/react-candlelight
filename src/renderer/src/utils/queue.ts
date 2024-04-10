@@ -1,4 +1,4 @@
-export const QUEUE_CAPACITY = 100000
+export const QUEUE_CAPACITY = 1000000
 
 export class Queue<T> {
   private items: T[] = []
