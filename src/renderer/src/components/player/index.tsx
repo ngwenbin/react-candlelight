@@ -12,19 +12,21 @@ import { useSongScrubber } from "./hooks/useSongScrubber"
 import { useEffect } from "react"
 
 interface PlayerProps {
-  song?: SongData
+  song?: Omit<SongData, "id" | "songId">
+  loading: boolean
+  hasPrevious: boolean
+  onFinish: () => void
   onSkipNext: () => void
   onSkipPrev: () => void
-  onFinish: () => void
-  loading: boolean
 }
 
 export const Player = ({
   song,
-  onSkipNext,
-  onSkipPrev,
+  loading,
+  hasPrevious,
   onFinish,
-  loading
+  onSkipNext,
+  onSkipPrev
 }: PlayerProps) => {
   const { name, artist, src, coverImg } = song ?? {}
   const hasSongLoaded = !!song
@@ -81,7 +83,7 @@ export const Player = ({
         <Button
           className="!bg-transparent enabled:hover:bg-transparent text-gray-2 hover:text-white"
           icon={<RiSkipBackFill className="w-8 h-8" />}
-          disabled
+          disabled={!hasPrevious || !hasSongLoaded || loading}
           onClick={onSkipPrev}
           variant="tertiary"
         />

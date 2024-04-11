@@ -12,5 +12,4 @@ export interface SongData {
 export interface Song {
   id: string
   songId: SongId
-  prev?: Song
 }
