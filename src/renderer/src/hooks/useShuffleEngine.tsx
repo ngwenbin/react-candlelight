@@ -3,10 +3,11 @@ import { useEffect, useMemo, useState } from "react"
 import { songIds } from "@renderer/lib/songs"
 import { Song } from "@renderer/types/song"
 import { v4 as uuidv4 } from "uuid"
+import { ListNode } from "@renderer/utils/doublyLL"
 
 export const DEFAULT_PEEK_MAX = 5
 
-const createSongLinkedList = (
+const createRandomSongList = (
   size: number,
   selection: string[],
   prevSong?: Song
@@ -24,8 +25,7 @@ const createSongLinkedList = (
       // Generating random id so that each song is unique. Safe to do so because ids
       // are generated on function call, not on render.
       id: uuidv4(),
-      songId: randomSongId,
-      prev
+      songId: randomSongId
     }
     list.push(song)
   }
@@ -40,28 +40,32 @@ const createSongLinkedList = (
 export const useShuffleEngine = () => {
   const [loading, setLoading] = useState(true)
   const [peekMax, setPeekMax] = useState(DEFAULT_PEEK_MAX)
-  const [currentSong, setCurrentSong] = useState<Song>()
+  const [currentSong, setCurrentSong] = useState<ListNode<Song> | null>(null)
 
   const shuffleEngine = useMemo(() => new ShuffleEngine(), [])
 
-  const generateSongs = (prevSong?: Song) => {
+  const refreshSongs = (prevSong?: Song) => {
     const currentSize = shuffleEngine.queue.size()
     const availableCapacity = peekMax - currentSize
-    const songList = createSongLinkedList(availableCapacity, songIds, prevSong)
+    const songList = createRandomSongList(availableCapacity, songIds, prevSong)
     shuffleEngine.setSongs(songList)
-    setCurrentSong(shuffleEngine?.peekQueue(1)?.[0])
+
+    setCurrentSong(shuffleEngine?.peekQueue(1)[0])
     setLoading(false)
   }
 
   const handleNextSong = () => {
     const poppedSong = shuffleEngine.nextSong()
-    generateSongs(poppedSong)
+    refreshSongs(poppedSong?.data)
   }
 
-  const handlePreviousSong = () => {}
+  const handlePreviousSong = () => {
+    shuffleEngine.previousSong()
+    refreshSongs()
+  }
 
   const handlePeekQueue = () => {
-    generateSongs()
+    refreshSongs()
     return shuffleEngine.peekQueue(peekMax)
   }
 
@@ -73,7 +77,7 @@ export const useShuffleEngine = () => {
 
   useEffect(() => {
     setLoading(true)
-    generateSongs()
+    refreshSongs()
   }, [])
 
   return {

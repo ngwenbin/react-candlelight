@@ -5,8 +5,9 @@ import ZZOOcL from "@renderer/assets/songs/Yiruma - Waltz in E Minor.mp3"
 import { SongData } from "@renderer/types/song"
 
 export const songIds = ["YtqDJc", "Ri4Sq6", "UrUBWG", "ZZOOcL"]
+export type SongCollection = Record<string, Omit<SongData, "id" | "songId">>
 
-export const songCollection: Record<string, Omit<SongData, "id" | "songId">> = {
+export const songCollection: SongCollection = {
   YtqDJc: {
     name: "Prelude C major",
     artist: "Bach",

@@ -1,5 +1,6 @@
 import { Song } from "@renderer/types/song"
 import { QUEUE_CAPACITY, Queue } from "./queue"
+import { ListNode } from "./doublyLL"
 
 export class ShuffleEngine {
   queue: Queue<Song> = new Queue()
@@ -14,22 +15,23 @@ export class ShuffleEngine {
     }
   }
 
-  peekQueue(peekMax: number): Song[] | undefined {
+  peekQueue(peekMax: number): ListNode<Song>[] {
     const peekValue = peekMax
     return this.queue.peek(
       peekValue <= QUEUE_CAPACITY ? peekValue : QUEUE_CAPACITY
     )
   }
 
-  nextSong(): Song | undefined {
+  nextSong(): ListNode<Song> | null {
     return this.queue.dequeue()
   }
 
-  previousSong(): Song | undefined {
-    const curr = this.queue.peek(1)?.[0]
-    if (curr?.prev) {
-      this.setSongs([curr.prev])
+  previousSong(): void {
+    const currSong = this.queue.peek(1)[0]
+    const prev = currSong.prev
+
+    if (prev) {
+      this.queue.insertStart(prev.data)
     }
-    return curr?.prev
   }
 }

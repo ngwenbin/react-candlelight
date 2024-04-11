@@ -18,30 +18,32 @@ function App(): JSX.Element {
     handlePreviousSong
   } = useShuffleEngine()
 
-  const currentSongData = currentSong
-    ? {
-        ...currentSong,
-        ...songCollection[currentSong.songId ?? ""]
-      }
-    : undefined
-
-  const handleOnQueueOpen = () => {
-    const data = handlePeekQueue()
-    const filledData = data?.map((i) => ({
-      ...i,
-      ...songCollection[i.songId]
-    }))
-    return filledData ?? []
-  }
+  const currentSongId = currentSong?.data?.songId
+  const currentSongData = songCollection[currentSongId ?? ""]
 
   const handleOnConfirmSettings = (data: SettingsConfig) => {
     const { peekMax: updatedPeekMax } = data
     setPeekMax(updatedPeekMax)
   }
 
+  const handleGetSongQueue = () => {
+    const data = handlePeekQueue()
+    const filledData = data?.map((song) => {
+      const { songId, id } = song.data
+      const songDetails = songCollection[songId]
+      return {
+        id,
+        songId,
+        ...songDetails
+      }
+    })
+    return filledData ?? []
+  }
+
   return (
     <Layout className="px-10 pt-4 relative">
       <Player
+        hasPrevious={!!currentSong?.prev}
         song={currentSongData}
         onFinish={handleNextSong}
         onSkipNext={handleNextSong}
@@ -55,7 +57,7 @@ function App(): JSX.Element {
         />
         <QueueInterface
           onSongClick={handleSkipToSong}
-          getSongQueue={handleOnQueueOpen}
+          getSongQueue={handleGetSongQueue}
         />
       </div>
     </Layout>

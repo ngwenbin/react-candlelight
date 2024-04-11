@@ -1,28 +1,40 @@
+import { DoublyLinkedList, ListNode } from "./doublyLL"
+
 export const QUEUE_CAPACITY = 1000000
 
 export class Queue<T> {
-  private items: T[] = []
+  private items: DoublyLinkedList<T>
   private capacity: number = QUEUE_CAPACITY
+
+  constructor() {
+    this.items = new DoublyLinkedList<T>()
+  }
 
   enqueue(item: T): void {
     if (this.size() < this.capacity) {
-      console.log("pushed")
       this.items.push(item)
     } else {
       throw new Error("Max capacity reached.")
     }
   }
 
-  dequeue(): T | undefined {
+  insertStart(item: T): void {
+    if (this.size() < this.capacity) {
+      this.items.unshift(item)
+    } else {
+      throw new Error("Max capacity reached.")
+    }
+  }
+
+  dequeue(): ListNode<T> | null {
     return this.items.shift()
   }
 
-  peek(count: number): T[] | undefined {
-    const items = this.items.slice(0, count)
-    return items.length === 0 ? undefined : items
+  peek(count: number): ListNode<T>[] {
+    return this.items.toList(count)
   }
 
   size(): number {
-    return this.items.length
+    return this.items.size
   }
 }
