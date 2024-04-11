@@ -37,4 +37,8 @@ export class Queue<T> {
   size(): number {
     return this.items.size
   }
+
+  last(): ListNode<T> | null {
+    return this.items.tail
+  }
 }

@@ -29,7 +29,6 @@ const createRandomSongList = (
     }
     list.push(song)
   }
-
   return list
 }
 
@@ -59,8 +58,9 @@ export const useShuffleEngine = () => {
   }
 
   const handleNextSong = () => {
-    const poppedSong = shuffleEngine.nextSong()
-    refreshSongs(poppedSong?.data)
+    shuffleEngine.nextSong()
+    // The next song getting inserted wont be the same as the last song.
+    refreshSongs(shuffleEngine.lastSong()?.data)
   }
 
   const handlePreviousSong = () => {
@@ -69,20 +69,22 @@ export const useShuffleEngine = () => {
   }
 
   const handlePeekQueue = () => {
-    refreshSongs()
+    refreshSongs(shuffleEngine.lastSong()?.data)
     return shuffleEngine.peekQueue(peekMax)
   }
 
+  // flush the queue to idx, then generate songs to fill the capacity up till peekMax.
   const handleSkipToSong = (id: string, idx: number) => {
     for (let x = 0; x <= idx; x++) {
-      handleNextSong()
+      shuffleEngine.nextSong()
     }
+    refreshSongs(shuffleEngine.lastSong()?.data)
   }
 
   useEffect(() => {
     setLoading(true)
     refreshSongs()
-  }, [])
+  }, [peekMax])
 
   return {
     loading,

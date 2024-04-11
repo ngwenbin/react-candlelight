@@ -34,4 +34,8 @@ export class ShuffleEngine {
       this.queue.insertStart(prev.data)
     }
   }
+
+  lastSong(): ListNode<Song> | null {
+    return this.queue.last()
+  }
 }

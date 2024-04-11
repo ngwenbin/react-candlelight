@@ -8,6 +8,9 @@ interface SettingsInterfaceProps {
   settings: SettingsConfig
 }
 
+/**
+ * Interface that combines the SettingsMenu Modal and a trigger button.
+ */
 export const SettingsInterface = ({
   onConfirmSettings,
   settings
