@@ -53,7 +53,7 @@ React electron was selected as the initial plan was to allow reading of system a
 
 ## Shuffle algorithmn
 
-- A songId will be randomly selected from a fixed songId list. However, this algorithmn is poor and may need further optimization and work.
+- A songId will be randomly selected from a fixed songId list. However, this algorithmn is poor and may need further optimization and work. An attempt to make each loop unique is by offering a previous song argument, and exclude that songId from the random selection. May need to explore a more robust algorithmn such as Fischer Yates.
 
 ## Architecture design
 
