@@ -2,10 +2,10 @@ import { RiPlayListFill } from "@remixicon/react"
 import { Button } from "@renderer/components/common/button"
 import { useState } from "react"
 import { QueueMenu } from "./QueueMenu"
-import { SongData } from "@renderer/types/song"
+import { Song } from "@renderer/types/song"
 
 interface QueueInterfaceProps {
-  getSongQueue: () => SongData[]
+  songQueue: Song[]
   onSongClick: (id: string, idx: number) => void
 }
 
@@ -13,7 +13,7 @@ interface QueueInterfaceProps {
  * Interface that combines the QueueMenu Modal and a trigger button.
  */
 export const QueueInterface = ({
-  getSongQueue,
+  songQueue,
   onSongClick
 }: QueueInterfaceProps) => {
   const [show, setShow] = useState(false)
@@ -37,7 +37,7 @@ export const QueueInterface = ({
       />
       {show && (
         <QueueMenu
-          getSongQueue={getSongQueue}
+          songQueue={songQueue}
           onClose={handleHideMenu}
           onSongClick={onSongClick}
         />

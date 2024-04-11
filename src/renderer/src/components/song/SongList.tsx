@@ -1,11 +1,11 @@
-import { SongData } from "@renderer/types/song"
+import { Song } from "@renderer/types/song"
 import { SongDisplay } from "./SongDisplay"
 import { FixedSizeList } from "react-window"
 import AutoSizer from "react-virtualized-auto-sizer"
 import { CSSProperties } from "react"
 
 interface SongListProps {
-  songs: SongData[]
+  songs: Song[]
   onSongClick?: (id: string, idx: number) => void
 }
 
@@ -16,7 +16,7 @@ const Row = ({
 }: {
   index
   style: CSSProperties
-  data: { songs: SongData[]; onSongClick?: (id: string, idx: number) => void }
+  data: { songs: Song[]; onSongClick?: (id: string, idx: number) => void }
 }) => {
   const { songs, onSongClick } = data
   const item = songs[index]

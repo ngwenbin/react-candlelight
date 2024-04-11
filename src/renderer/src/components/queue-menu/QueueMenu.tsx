@@ -1,14 +1,13 @@
 import clsx from "clsx"
 import { SongDisplay } from "../song/SongDisplay"
 import { SongList } from "../song/SongList"
-import { SongData } from "@renderer/types/song"
 import { Modal } from "../common/modal"
 import { Spinner } from "../common/loader-animations"
-import { useEffect, useState } from "react"
+import { Song } from "@renderer/types/song"
 
 interface QueueMenuProps {
   onClose: () => void
-  getSongQueue: () => SongData[]
+  songQueue: Song[]
   onSongClick: (id: string, idx: number) => void
 }
 
@@ -17,20 +16,14 @@ interface QueueMenuProps {
  */
 export const QueueMenu = ({
   onClose,
-  getSongQueue,
+  songQueue,
   onSongClick
 }: QueueMenuProps) => {
-  const [songQueue, setSongQueue] = useState<SongData[]>([])
   const [firstSong, ...songs] = songQueue
 
   const handleSongClick = (id: string, idx: number) => {
     onSongClick(id, idx)
-    setSongQueue(getSongQueue())
   }
-
-  useEffect(() => {
-    setSongQueue(getSongQueue())
-  }, [])
 
   return (
     <Modal title="Your Queue" onClose={onClose}>

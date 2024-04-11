@@ -11,9 +11,9 @@ function App(): JSX.Element {
     loading,
     peekMax,
     setPeekMax,
+    songQueue,
     currentSong,
     handleNextSong,
-    handlePeekQueue,
     handleSkipToSong,
     handlePreviousSong
   } = useShuffleEngine()
@@ -24,20 +24,6 @@ function App(): JSX.Element {
   const handleOnConfirmSettings = (data: SettingsConfig) => {
     const { peekMax: updatedPeekMax } = data
     setPeekMax(updatedPeekMax)
-  }
-
-  const handleGetSongQueue = () => {
-    const data = handlePeekQueue()
-    const filledData = data?.map((song) => {
-      const { songId, id } = song.data
-      const songDetails = songCollection[songId]
-      return {
-        id,
-        songId,
-        ...songDetails
-      }
-    })
-    return filledData ?? []
   }
 
   return (
@@ -55,10 +41,7 @@ function App(): JSX.Element {
           settings={{ peekMax }}
           onConfirmSettings={handleOnConfirmSettings}
         />
-        <QueueInterface
-          onSongClick={handleSkipToSong}
-          getSongQueue={handleGetSongQueue}
-        />
+        <QueueInterface songQueue={songQueue} onSongClick={handleSkipToSong} />
       </div>
     </Layout>
   )

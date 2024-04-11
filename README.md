@@ -34,7 +34,7 @@ React electron was selected as the initial plan was to allow reading of system a
 5. Pleasant UI
 6. Typescript
 7. (Additional feature) Support Next, Previous, Jump features.
-8. (Additional feature) Support scrubbing of audio and autoplay.
+8. (Additional feature) Support song scrubbing and autoplay.
 9. (Additional feature) ~~Support importing of system local files~~ (No time)
 
 ## Corner cases
@@ -77,8 +77,6 @@ export interface SongData { // Full interface with song metadata
 }
 
 ```
-
-- Queue list display is the most expensive operation in the app, hence the state is managed internally so that fetching is only done only when required. For example, if the queue list is not in view and the songs in queue is < peekMax, songs will only be generated on the queue menu open callback.
 
 - React window (Virtual list) was used to lazy render the queue list as the peekMax range is very high.
 

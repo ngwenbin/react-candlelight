@@ -41,6 +41,7 @@ export const useShuffleEngine = () => {
   const [loading, setLoading] = useState(true)
   const [peekMax, setPeekMax] = useState(DEFAULT_PEEK_MAX)
   const [currentSong, setCurrentSong] = useState<ListNode<Song> | null>(null)
+  const [songQueue, setSongQueue] = useState<Song[]>([])
 
   const shuffleEngine = useMemo(() => new ShuffleEngine(), [])
 
@@ -50,7 +51,10 @@ export const useShuffleEngine = () => {
     const songList = createRandomSongList(availableCapacity, songIds, prevSong)
     shuffleEngine.setSongs(songList)
 
-    setCurrentSong(shuffleEngine?.peekQueue(1)[0])
+    const updatedSongList = shuffleEngine?.peekQueue(peekMax)
+
+    setSongQueue(updatedSongList.map((i) => i.data))
+    setCurrentSong(updatedSongList[0])
     setLoading(false)
   }
 
@@ -84,6 +88,7 @@ export const useShuffleEngine = () => {
     loading,
     peekMax,
     setPeekMax,
+    songQueue,
     currentSong,
     handleNextSong,
     handlePreviousSong,

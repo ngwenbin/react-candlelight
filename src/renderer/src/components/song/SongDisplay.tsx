@@ -1,15 +1,17 @@
 import clsx from "clsx"
 import { Image } from "@renderer/components/common/image"
-import { SongData } from "@renderer/types/song"
+import { Song } from "@renderer/types/song"
+import { songCollection } from "@renderer/lib/songs"
 
 interface SongDisplayProps {
-  data: SongData
+  data: Song
   focused?: boolean
   onClick?: (id: string) => void
 }
 
 export const SongDisplay = ({ data, focused, onClick }: SongDisplayProps) => {
-  const { id, name, artist, coverImg } = data
+  const { songId, id } = data
+  const { coverImg, name, artist } = songCollection[songId]
 
   const handleClick = () => {
     onClick?.(id)
